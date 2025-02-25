@@ -58,12 +58,23 @@ export async function seedTriplit() : Promise<number>{
   return Math.round(performance.now() - start);
 }
 
-export async function fetchTodosFromTriplit():Promise<number>{
+export async function fetchTimesFromTriplit():Promise<number>{
   const start = performance.now();
 
   console.log('fetching from triplit...');
   const t = performance.now();
   const results = await db.fetch(db.query('times').where('session_id', '=', "6_s9_sqiUPg69qSm7RPTe").build())
+  console.log(`fetching ${results.length} todos took`, performance.now() - t, 'ms');
+  console.log('results', results);
+  return Math.round(performance.now() - start);
+}
+
+export async function fetchTimesComplexFromTriplit():Promise<number>{
+  const start = performance.now();
+
+  console.log('fetching from triplit...');
+  const t = performance.now();
+  const results = await db.fetch(db.query('times').where('session_id', '=', "6_s9_sqiUPg69qSm7RPTe").where("time", "<", 16000).build())
   console.log(`fetching ${results.length} todos took`, performance.now() - t, 'ms');
   console.log('results', results);
   return Math.round(performance.now() - start);

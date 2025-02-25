@@ -28,10 +28,19 @@ export async function seedDexie(): Promise<number>{
   return Math.round(performance.now() - start);
 }
 
-export async function fetchTodosFromDexie():Promise<number>{
+export async function fetchTimesFromDexie():Promise<number>{
   console.log('fetching from dexie...');
   const t = performance.now();
   const results = await db.times.where("session_id").equals("6_s9_sqiUPg69qSm7RPTe").toArray();
+  console.log(`fetching ${results.length} completed todos took`, performance.now() - t, 'ms');
+  console.log('results', results);
+  return Math.round(performance.now() - t);
+}
+
+export async function fetchTimesComplexFromDexie():Promise<number>{
+  console.log('fetching from dexie...');
+  const t = performance.now();
+  const results = await db.times.where("session_id").equals("6_s9_sqiUPg69qSm7RPTe").and((time) => time.time < 16000).toArray();
   console.log(`fetching ${results.length} completed todos took`, performance.now() - t, 'ms');
   console.log('results', results);
   return Math.round(performance.now() - t);

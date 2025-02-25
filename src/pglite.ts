@@ -55,7 +55,7 @@ export async function seedPGLite(): Promise<number> {
   return Math.round(performance.now() - start);
 }
 
-export async function fetchTodosFromPGLite(): Promise<number> {
+export async function fetchTimesFromPGLite(): Promise<number> {
   console.log("fetching from pglite...");
   const t = performance.now();
   const results = await db.exec(`SELECT * FROM times WHERE session_id = '6_s9_sqiUPg69qSm7RPTe'`);
@@ -63,3 +63,13 @@ export async function fetchTodosFromPGLite(): Promise<number> {
   console.log("results", results);
   return Math.round(performance.now() - t);
 }
+
+export async function fetchTimesComplexFromPGLite(): Promise<number> {
+  console.log("fetching from pglite...");
+  const t = performance.now();
+  const results = await db.exec(`SELECT * FROM times WHERE session_id = '6_s9_sqiUPg69qSm7RPTe' AND time < 16000 `);
+  console.log(`fetching ${results[0].rows.length} completed todos took`, performance.now() - t, "ms");
+  console.log("results", results);
+  return Math.round(performance.now() - t);
+}
+
