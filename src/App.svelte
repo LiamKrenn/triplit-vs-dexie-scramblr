@@ -3,6 +3,7 @@
     seedDexie,
     fetchTimesFromDexie,
     fetchTimesComplexFromDexie,
+    getBestAO5FromDexie,
   } from "./dexie";
   import {
     seedTriplit,
@@ -13,19 +14,23 @@
     seedPGLite,
     fetchTimesFromPGLite,
     fetchTimesComplexFromPGLite,
+    getBestAO5FromPGLite,
   } from "./pglite";
 
   let lastDexieSeedRun: number | null = $state(null);
   let lastDexieFetchRun: number | null = $state(null);
   let lastDexieFetchComplexRun: number | null = $state(null);
+  let lastDexieAO5Run: number | null = $state(null);
 
   let lastTriplitSeedRun: number | null = $state(null);
   let lastTriplitFetchRun: number | null = $state(null);
   let lastTriplitFetchComplexRun: number | null = $state(null);
+  let lastTriplitAO5Run: number | null = $state(null);
 
   let lastPGLiteSeedRun: number | null = $state(null);
   let lastPGLiteFetchRun: number | null = $state(null);
   let lastPGLiteFetchComplexRun: number | null = $state(null);
+  let lastPGLiteAO5Run: number | null = $state(null);
 </script>
 
 <main>
@@ -51,6 +56,13 @@
       }}>Fetch 'Complex' Times</button
     >
     <div>{lastDexieFetchComplexRun}ms</div>
+
+    <button
+      onclick={async () => {
+        lastDexieAO5Run = await getBestAO5FromDexie();
+      }}>Get Best AO5</button
+    >
+    <div>{lastDexieAO5Run}ms</div>
   </div>
   <div>
     <h2>Triplit</h2>
@@ -96,6 +108,13 @@
       }}>Fetch 'Complex' Times</button
     >
     <div>{lastPGLiteFetchComplexRun}ms</div>
+
+    <button
+      onclick={async () => {
+        lastPGLiteAO5Run = await getBestAO5FromPGLite();
+      }}>Get Best AO5</button
+    >
+    <div>{lastPGLiteAO5Run}ms</div>
   </div>
 </main>
 
